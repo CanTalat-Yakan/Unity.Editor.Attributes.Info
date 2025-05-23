@@ -24,7 +24,6 @@ namespace UnityEssentials
         /// <remarks>This method uses the <see cref="InfoAttribute"/> associated with the field to display
         /// a help box with a message, icon, and type. If the attribute is not present or invalid, the method does
         /// nothing.</remarks>
-        /// <param name="position">The rectangular area on the screen where the GUI element will be drawn.</param>
         public override void OnGUI(Rect position)
         {
             var infoAttribute = attribute as InfoAttribute;
