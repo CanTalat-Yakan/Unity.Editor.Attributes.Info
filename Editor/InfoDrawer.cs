@@ -32,7 +32,7 @@ namespace UnityEssentials
 
             _iconSize = infoAttribute.IconSize;
 
-            EditorGUI.HelpBox(position, infoAttribute.Message, infoAttribute.Type);
+            EditorGUI.HelpBox(position, infoAttribute.Message, (UnityEditor.MessageType)infoAttribute.Type);
         }
 
         /// <summary>

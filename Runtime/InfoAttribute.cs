@@ -1,8 +1,9 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace UnityEssentials
 {
+    public enum MessageType { None, Info, Warning, Error }
+
     /// <summary>
     /// Specifies metadata to display an informational message in the Unity Inspector.
     /// </summary>
@@ -19,7 +20,7 @@ namespace UnityEssentials
         {
             Type = type;
             Message = message;
-            IconSize =iconSize;
+            IconSize = iconSize;
         }
     }
 }
