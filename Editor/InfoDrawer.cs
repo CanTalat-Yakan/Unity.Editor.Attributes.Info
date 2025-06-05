@@ -11,20 +11,14 @@ namespace UnityEssentials
     /// the <see cref="InfoAttribute"/>. The help box displays a message and an optional icon, with the height
     /// dynamically adjusted based on the content.</remarks>
     [CustomPropertyDrawer(typeof(InfoAttribute))]
-    public class InfoDrawer : DecoratorDrawer
+    public class InfoDrawer : PropertyDrawer
     {
         private const float Padding = 34f;
         private const float VerticalPadding = 8f;
 
         private float _iconSize;
 
-        /// <summary>
-        /// Renders a custom GUI element in the specified position.
-        /// </summary>
-        /// <remarks>This method uses the <see cref="InfoAttribute"/> associated with the field to display
-        /// a help box with a message, icon, and type. If the attribute is not present or invalid, the method does
-        /// nothing.</remarks>
-        public override void OnGUI(Rect position)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var infoAttribute = attribute as InfoAttribute;
             if (infoAttribute == null)
@@ -32,22 +26,24 @@ namespace UnityEssentials
 
             _iconSize = infoAttribute.IconSize;
 
+            if (property.propertyType == SerializedPropertyType.String)
+            {
+                infoAttribute.Message = property.stringValue;
+
+                if (property.stringValue.StartsWith("Error"))
+                    infoAttribute.Type = MessageType.Error;
+                else if (property.stringValue.StartsWith("Warning"))
+                    infoAttribute.Type = MessageType.Warning;
+                else infoAttribute.Type = MessageType.Info;
+            }
+
+            // Check if Message is a string before using it
             EditorGUI.HelpBox(position, infoAttribute.Message, (UnityEditor.MessageType)infoAttribute.Type);
         }
 
-        /// <summary>
-        /// Calculates the height required to display the content, including padding and icon size.
-        /// </summary>
-        /// <remarks>If the associated attribute is not of type <see cref="InfoAttribute"/>, the base
-        /// implementation  is used to determine the height. Otherwise, the height is calculated based on the message 
-        /// provided by the <see cref="InfoAttribute"/> and the current editor view width.</remarks>
-        /// <returns>The height, in pixels, required to render the content. This value is determined by the  message text height
-        /// or the icon size, whichever is greater, plus vertical padding.</returns>
-        public override float GetHeight()
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var infoAttribute = attribute as InfoAttribute;
-            if (infoAttribute == null)
-                return base.GetHeight();
 
             var textHeight = EditorStyles.helpBox.CalcHeight(
                 new GUIContent(infoAttribute.Message),

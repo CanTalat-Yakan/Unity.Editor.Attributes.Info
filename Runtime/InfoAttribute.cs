@@ -16,6 +16,12 @@ namespace UnityEssentials
         public string Message;
         public int IconSize;
 
+        public InfoAttribute(MessageType type = MessageType.Info, int iconSize = 32)
+        {
+            Type = type;
+            IconSize = iconSize;
+        }
+
         public InfoAttribute(string message, MessageType type = MessageType.Info, int iconSize = 32)
         {
             Type = type;
