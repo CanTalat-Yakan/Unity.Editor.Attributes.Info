@@ -34,7 +34,6 @@ namespace UnityEssentials
                     infoAttribute.Type = MessageType.Error;
                 else if (property.stringValue.StartsWith("Warning"))
                     infoAttribute.Type = MessageType.Warning;
-                else infoAttribute.Type = MessageType.Info;
             }
 
             // Check if Message is a string before using it
