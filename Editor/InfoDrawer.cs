@@ -17,6 +17,7 @@ namespace UnityEssentials
         private const float VerticalPadding = 8f;
 
         private float _iconSize;
+        private MessageType _messageType;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -31,13 +32,14 @@ namespace UnityEssentials
                 infoAttribute.Message = property.stringValue;
 
                 if (property.stringValue.StartsWith("Error"))
-                    infoAttribute.Type = MessageType.Error;
+                    _messageType = MessageType.Error;
                 else if (property.stringValue.StartsWith("Warning"))
-                    infoAttribute.Type = MessageType.Warning;
+                    _messageType = MessageType.Warning;
+                else _messageType = infoAttribute.Type;
             }
 
             // Check if Message is a string before using it
-            EditorGUI.HelpBox(position, infoAttribute.Message, (UnityEditor.MessageType)infoAttribute.Type);
+            EditorGUI.HelpBox(position, infoAttribute.Message, (UnityEditor.MessageType)_messageType);
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
