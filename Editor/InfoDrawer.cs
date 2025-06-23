@@ -38,7 +38,8 @@ namespace UnityEssentials
                 else _messageType = infoAttribute.Type;
             }
 
-            // Check if Message is a string before using it
+            position = EditorGUI.IndentedRect(position);
+
             EditorGUI.HelpBox(position, infoAttribute.Message, (UnityEditor.MessageType)_messageType);
         }
 
