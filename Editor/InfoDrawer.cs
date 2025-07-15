@@ -31,6 +31,9 @@ namespace UnityEssentials
             {
                 infoAttribute.Message = property.stringValue;
 
+                if (string.IsNullOrEmpty(infoAttribute.Message))
+                    return;
+
                 if (property.stringValue.StartsWith("Error"))
                     _messageType = MessageType.Error;
                 else if (property.stringValue.StartsWith("Warning"))
@@ -46,6 +49,10 @@ namespace UnityEssentials
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var infoAttribute = attribute as InfoAttribute;
+
+            infoAttribute.Message = property.stringValue;
+            if (string.IsNullOrEmpty(infoAttribute.Message))
+                return 0;
 
             var textHeight = EditorStyles.helpBox.CalcHeight(
                 new GUIContent(infoAttribute.Message),
