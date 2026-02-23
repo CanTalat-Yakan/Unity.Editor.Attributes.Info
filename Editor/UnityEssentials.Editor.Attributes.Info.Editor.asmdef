@@ -1,5 +1,5 @@
 {
-    "name": "UnityEssentials.InfoAttribute.Editor",
+    "name": "UnityEssentials.Editor.Attributes.Info.Editor",
     "rootNamespace": "UnityEssentials",
     "references": [
         "GUID:882b7c953099bf44b8175faa8bfec00a"
